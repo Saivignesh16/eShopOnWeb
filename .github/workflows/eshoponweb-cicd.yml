@@ -80,7 +80,7 @@ jobs:
 
       - name: Debug variables
         run: |
-          echo "RG: $RESOURCE-GROUP"
+          echo "RG: $RESOURCE_GROUP"
           echo "LOC: $LOCATION"
 
       - name: Create Resource Group
@@ -88,7 +88,7 @@ jobs:
         with:
           inlineScript: |
             az group create \
-              --resource-group "$RESOURCE-GROUP" \
+              --resource-group "$RESOURCE_GROUP" \
               --location "$LOCATION"
         
       # Deploy Azure WebApp using Bicep file
@@ -96,7 +96,7 @@ jobs:
         uses: azure/arm-deploy@v2
         with:
           subscriptionId: ${{ env.SUBSCRIPTION-ID }}
-          resourceGroupName: ${{ env.RESOURCE-GROUP }}
+          resourceGroupName: ${{ env.RESOURCE_GROUP }}
           template: bicep-template/webapp.bicep
           parameters: "webAppName=${{ env.WEBAPP-NAME }} location=${{ env.LOCATION }}"
           failOnStdErr: false
